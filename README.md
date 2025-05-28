@@ -1,4 +1,4 @@
-# T-mobile CareLink + (Hypertension Medication Adherence)
+# T-mobile CareLink + (Hypertension Medication Adherence) Portal
 
 ### Getting Started with Create React App
 
