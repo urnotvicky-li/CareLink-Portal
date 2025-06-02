@@ -1,19 +1,37 @@
-// src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DoctorPortal from "./DoctorPortal";        // 直接从根目录导入
-import PatientPortal from "./PatientPortal";      // 直接从根目录导入
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import CareLink from "./components/Landing";
+import DoctorPortal from "./DoctorPortal";
+import PatientPortal from "./PatientPortal";
+
+// Wrapper to use hooks like useNavigate
+function AppWrapper() {
+  const navigate = useNavigate();
+
+  const handleSignIn = (user, userType) => {
+    if (userType === "doctor") {
+      navigate("/doctor");
+    } else if (userType === "patient") {
+      navigate("/patient");
+    }
+  };
+
+  return <CareLink onSignIn={handleSignIn} />;
+}
 
 function App() {
   return (
-    <div>
-      <Router>
-        <Routes>
-          <Route path="/doctor/*" element={<DoctorPortal />} />
-          <Route path="/patient/*" element={<PatientPortal />} />
-          <Route path="/" element={<div>Welcome! Choose Doctor or Patient portal</div>} />
-        </Routes>
-      </Router>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<AppWrapper />} />
+        <Route path="/doctor/*" element={<DoctorPortal />} />
+        <Route path="/patient/*" element={<PatientPortal />} />
+      </Routes>
+    </Router>
   );
 }
 
