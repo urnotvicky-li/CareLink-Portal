@@ -12,10 +12,10 @@ import PatientPortal from "./PatientPortal";
 function AppWrapper() {
   const navigate = useNavigate();
 
-  const handleSignIn = (user, userType) => {
-    if (userType === "doctor") {
+  const handleSignIn = (user) => {
+    if (user.userType === "doctor") {
       navigate("/doctor");
-    } else if (userType === "patient") {
+    } else if (user.userType === "patient") {
       navigate("/patient");
     }
   };

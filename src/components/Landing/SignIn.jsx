@@ -141,13 +141,13 @@ export const SignIn = ({
 
         <form onSubmit={handleSignIn} style={{ textAlign: "left" }}>
           <div style={{ marginBottom: "24px" }}>
-            <label style={styles.label}>Username</label>
+            <label style={styles.label}>Username or Email</label>
             <div style={styles.inputWrapper}>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
+                placeholder="Enter your username or email"
                 onFocus={(e) => (e.target.style.borderColor = colors.magenta)}
                 onBlur={(e) => (e.target.style.borderColor = colors.lightGray)}
                 style={styles.input}
