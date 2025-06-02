@@ -87,7 +87,12 @@ const styles = {
   },
 };
 
-export const Landing = ({ resetState, setUserType, setCurrentStep }) => {
+export const Landing = ({
+  resetState,
+  setUserType,
+  setCurrentStep,
+  handleProgramSelection,
+}) => {
   const handleStart = (step) => {
     resetState();
     setCurrentStep(step);
@@ -114,7 +119,7 @@ export const Landing = ({ resetState, setUserType, setCurrentStep }) => {
             SIGN IN
           </button>
           <button
-            onClick={() => handleStart("program-selection")}
+            onClick={() => handleProgramSelection("hypertension")}
             style={{ ...styles.button, ...styles.signUpBtn }}
           >
             SIGN UP FOR NEW PROGRAM

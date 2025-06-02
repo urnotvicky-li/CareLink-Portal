@@ -239,6 +239,7 @@ const CareLink = ({ onSignIn }) => {
               setCurrentStep={setCurrentStep}
               setUserType={setUserType}
               switchUserType={setUserType}
+              handleProgramSelection={handleProgramSelection}
             />
           </div>
         );
@@ -294,6 +295,7 @@ const CareLink = ({ onSignIn }) => {
               signUpError={errors.signUp}
               setCurrentStep={setCurrentStep}
               onSignUp={handleSignUp}
+              returnToLanding={returnToLanding}
             />
           </div>
         );
