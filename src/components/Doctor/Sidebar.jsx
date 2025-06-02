@@ -1,4 +1,4 @@
-// src/components/Sidebar.jsx
+import logo from "../../assets/logo.svg";
 
 export default function Sidebar() {
   return (
@@ -6,8 +6,14 @@ export default function Sidebar() {
       {/* T-Mobile Logo */}
       <div className="logo-section">
         <div className="tmobile-logo">
-          <span className="t-logo">T</span>
-          <span className="mobile-text">Mobile</span>
+          <div className="tmobile-logo">
+            <img
+              src={logo}
+              alt="T-Mobile Logo"
+              className="tmobile-logo-img"
+              width={48}
+            />
+          </div>
         </div>
       </div>
 

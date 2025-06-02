@@ -17,7 +17,8 @@ export const SignUp = ({
   setShowPassword,
   setSignUpError,
   signUpError,
-  setCurrentStep,
+  // setCurrentStep,
+  returnToLanding,
   onSignUp,
 }) => {
   const [isSignUpLoading, setIsSignUpLoading] = useState(false);
@@ -313,7 +314,7 @@ export const SignUp = ({
 
         <div style={{ textAlign: "center", marginTop: "32px" }}>
           <button
-            onClick={() => setCurrentStep("program-selection")}
+            onClick={returnToLanding}
             style={{
               fontSize: "14px",
               color: colors.magenta,
@@ -324,7 +325,8 @@ export const SignUp = ({
               textDecoration: "underline",
             }}
           >
-            ← Change Program
+            {/* ← Change Program */}
+            ← Back to Home
           </button>
         </div>
       </div>
