@@ -105,7 +105,10 @@ export const Landing = ({ resetState, setUserType, setCurrentStep }) => {
 
         <div style={{ marginBottom: "32px" }}>
           <button
-            onClick={() => handleStart("signin")}
+            onClick={() => {
+              setUserType("patient");
+              handleStart("signin");
+            }}
             style={{ ...styles.button, ...styles.signInBtn }}
           >
             SIGN IN

@@ -116,7 +116,7 @@ export const SignIn = ({
   setShowPassword,
   error,
   isLoading,
-  setCurrentStep,
+  returnToLanding,
 }) => {
   const fillDemoCredentials = () => {
     if (userType === "patient") {
@@ -209,10 +209,7 @@ export const SignIn = ({
         </div>
 
         <div style={{ textAlign: "center", marginTop: "32px" }}>
-          <button
-            onClick={() => setCurrentStep("landing")}
-            style={styles.linkButton}
-          >
+          <button onClick={returnToLanding} style={styles.linkButton}>
             ← Back to Home
           </button>
         </div>

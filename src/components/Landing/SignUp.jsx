@@ -10,7 +10,7 @@ export const SignUp = ({
   setSignUpError,
   signUpError,
   setCurrentStep,
-  onSignIn,
+  onSignUp,
 }) => {
   const [isSignUpLoading, setIsSignUpLoading] = useState(false);
 
@@ -67,7 +67,7 @@ export const SignUp = ({
     };
 
     mockUsers.patients.push(newUser);
-    onSignIn(newUser);
+    onSignUp(newUser);
     setIsSignUpLoading(false);
   };
 

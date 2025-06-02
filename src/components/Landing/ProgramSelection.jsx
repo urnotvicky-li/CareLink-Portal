@@ -88,7 +88,7 @@ const styles = {
 };
 
 export const ProgramSelection = ({
-  setCurrentStep,
+  returnToLanding,
   handleProgramSelection,
 }) => {
   const handleMouseEnter = (e) => {
@@ -132,10 +132,7 @@ export const ProgramSelection = ({
         </div>
 
         <div style={styles.backBtnWrapper}>
-          <button
-            onClick={() => setCurrentStep("landing")}
-            style={styles.backBtn}
-          >
+          <button onClick={returnToLanding} style={styles.backBtn}>
             ← Back to Home
           </button>
         </div>

@@ -4,7 +4,12 @@ import { Landing } from "./Landing";
 import { ProgramSelection } from "./ProgramSelection";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
-import { mockUsers, healthcarePrograms, colors } from "./constants.ts";
+import { healthcarePrograms, colors } from "./constants.ts";
+import { auth } from "../../firebase.js";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const containerStyle = {
   background: "linear-gradient(135deg, #E20074 0%, #B8005A 100%)",
@@ -21,7 +26,7 @@ const containerStyle = {
   overflowY: "auto",
 };
 
-const CareLink = ({ onSignIn, switchUserType }) => {
+const CareLink = ({ onSignIn }) => {
   const [currentStep, setCurrentStep] = useState("landing");
   const [userType, setUserType] = useState("patient");
 
@@ -65,39 +70,55 @@ const CareLink = ({ onSignIn, switchUserType }) => {
     setIsLoading(true);
     setErrors((prev) => ({ ...prev, signIn: "" }));
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    const users =
-      userType === "patient" ? mockUsers.patients : mockUsers.doctors;
-    const user = users.find(
-      (u) =>
-        u.username === credentials.username &&
-        u.password === credentials.password
-    );
-
-    if (user) {
-      if (userType === "patient" && user.program !== "acl-rehab") {
-        setErrors((prev) => ({
-          ...prev,
-          signIn:
-            "This account does not belong to this platform. Please log in to the corresponding program.",
-        }));
-      } else {
-        onSignIn(user, userType);
-      }
-    } else {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        credentials.username,
+        credentials.password
+      );
+      const user = userCredential.user;
+      console.log("User signed in:", user);
+      onSignIn(user, userType); // pass user object from Firebase
+    } catch (error) {
+      console.error(error);
       setErrors((prev) => ({
         ...prev,
-        signIn: "Invalid username or password",
+        signIn: "Invalid email or password",
       }));
     }
 
     setIsLoading(false);
   };
 
+  const handleSignUp = async () => {
+    const { username, password, confirmPassword } = signUpData;
+    if (password !== confirmPassword) {
+      setErrors((prev) => ({ ...prev, signUp: "Passwords do not match" }));
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        username,
+        password
+      );
+      const user = userCredential.user;
+      onSignIn(user, userType); // auto-login
+    } catch (error) {
+      console.error(error);
+      setErrors((prev) => ({ ...prev, signUp: error.message }));
+    }
+  };
+
   const handleProgramSelection = (programId) => {
     setSignUpData((prev) => ({ ...prev, selectedProgram: programId }));
     setCurrentStep("signup");
+  };
+
+  const returnToLanding = () => {
+    resetState();
+    setCurrentStep("landing");
   };
 
   const renderContent = () => {
@@ -109,7 +130,7 @@ const CareLink = ({ onSignIn, switchUserType }) => {
               resetState={resetState}
               setCurrentStep={setCurrentStep}
               setUserType={setUserType}
-              switchUserType={switchUserType}
+              switchUserType={setUserType}
             />
           </div>
         );
@@ -118,7 +139,7 @@ const CareLink = ({ onSignIn, switchUserType }) => {
         return (
           <div style={containerStyle}>
             <ProgramSelection
-              setCurrentStep={setCurrentStep}
+              returnToLanding={returnToLanding}
               handleProgramSelection={handleProgramSelection}
             />
           </div>
@@ -144,7 +165,7 @@ const CareLink = ({ onSignIn, switchUserType }) => {
               }
               error={errors.signIn}
               isLoading={isLoading}
-              setCurrentStep={setCurrentStep}
+              returnToLanding={returnToLanding}
             />
           </div>
         );
@@ -164,7 +185,7 @@ const CareLink = ({ onSignIn, switchUserType }) => {
               }
               signUpError={errors.signUp}
               setCurrentStep={setCurrentStep}
-              onSignIn={onSignIn}
+              onSignUp={handleSignUp}
             />
           </div>
         );
