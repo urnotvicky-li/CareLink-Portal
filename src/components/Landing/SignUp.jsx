@@ -1,5 +1,13 @@
-import { User, Eye, EyeOff, AlertCircle, Calendar, Users } from "lucide-react";
-import { healthcarePrograms, colors, mockUsers } from "./constants.ts";
+import {
+  User,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  Calendar,
+  Users,
+  Mail,
+} from "lucide-react";
+import { healthcarePrograms, colors } from "./constants.ts";
 import { useState } from "react";
 
 export const SignUp = ({
@@ -30,6 +38,7 @@ export const SignUp = ({
     const {
       username,
       password,
+      email,
       confirmPassword,
       age,
       gender,
@@ -42,13 +51,7 @@ export const SignUp = ({
       return;
     }
 
-    if (mockUsers.patients.some((u) => u.username === username)) {
-      setSignUpError("Username already exists");
-      setIsSignUpLoading(false);
-      return;
-    }
-
-    if (!age || !gender) {
+    if (!age || !gender || !username || !email) {
       setSignUpError("Please fill in all required fields");
       setIsSignUpLoading(false);
       return;
@@ -57,16 +60,15 @@ export const SignUp = ({
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const newUser = {
-      id: mockUsers.patients.length + 1,
       username,
       password,
       name: username,
       age: parseInt(age, 10),
       gender,
       program: selectedProgram,
+      email
     };
 
-    mockUsers.patients.push(newUser);
     onSignUp(newUser);
     setIsSignUpLoading(false);
   };
@@ -149,6 +151,15 @@ export const SignUp = ({
             onChange={(val) => handleSignUpDataChange("username", val)}
             placeholder="Choose a username"
             icon={<User size={20} color={colors.darkGray} />}
+          />
+
+          {/* Email */}
+          <InputField
+            label="Email"
+            value={signUpData.email}
+            onChange={(val) => handleSignUpDataChange("email", val)}
+            placeholder="Enter your email"
+            icon={<Mail size={20} color={colors.darkGray} />}
           />
 
           {/* Password */}

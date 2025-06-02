@@ -5,11 +5,20 @@ import { ProgramSelection } from "./ProgramSelection";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { healthcarePrograms, colors } from "./constants.ts";
-import { auth } from "../../firebase.js";
+import { auth, db } from "../../firebase.js";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  where,
+  query,
+  collection,
+} from "firebase/firestore";
 
 const containerStyle = {
   background: "linear-gradient(135deg, #E20074 0%, #B8005A 100%)",
@@ -37,6 +46,7 @@ const CareLink = ({ onSignIn }) => {
   });
 
   const [signUpData, setSignUpData] = useState({
+    email: "",
     username: "",
     password: "",
     confirmPassword: "",
@@ -71,19 +81,85 @@ const CareLink = ({ onSignIn }) => {
     setErrors((prev) => ({ ...prev, signIn: "" }));
 
     try {
+      let emailToSignIn = credentials.username;
+
+      // 🔍 Check if the input is an email or username
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credentials.username);
+
+      if (!isEmail) {
+        // Lookup Firestore for email by username
+        const usersRef = collection(db, "users");
+        const q = query(
+          usersRef,
+          where("username", "==", credentials.username)
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          throw new Error("No user found with that username.");
+        }
+
+        // Assuming usernames are unique — take first match
+        const userDoc = querySnapshot.docs[0];
+        emailToSignIn = userDoc.data().email;
+      }
+
+      // ✅ Sign in with resolved email
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        credentials.username,
+        emailToSignIn,
         credentials.password
       );
+
       const user = userCredential.user;
-      console.log("User signed in:", user);
-      onSignIn(user, userType); // pass user object from Firebase
+
+      // 🔍 Fetch user profile from Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+
+        if (userData.userType !== userType) {
+          setErrors((prev) => ({
+            ...prev,
+            signIn:
+              userData.userType === "doctor"
+                ? "Please sign in as a doctor."
+                : "Please sign in as a patient.",
+          }));
+        } else {
+          const fullUser = {
+            uid: user.uid,
+            email: user.email,
+            ...userData,
+          };
+
+          if (fullUser.program === "hypertension") {
+            onSignIn(fullUser);
+          } else if (fullUser.program === "acl-rehab") {
+            window.open(
+              "https://preeminent-bubblegum-262a7d.netlify.app/",
+              "_self"
+            );
+          } else {
+            setErrors((prev) => ({
+              ...prev,
+              signIn: "This program is not available yet.",
+            }));
+          }
+        }
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          signIn: "User profile not found.",
+        }));
+      }
     } catch (error) {
       console.error(error);
       setErrors((prev) => ({
         ...prev,
-        signIn: "Invalid email or password",
+        signIn: error.message || "Invalid email or password",
       }));
     }
 
@@ -91,7 +167,16 @@ const CareLink = ({ onSignIn }) => {
   };
 
   const handleSignUp = async () => {
-    const { username, password, confirmPassword } = signUpData;
+    const {
+      email,
+      username,
+      password,
+      confirmPassword,
+      age,
+      gender,
+      selectedProgram,
+    } = signUpData;
+
     if (password !== confirmPassword) {
       setErrors((prev) => ({ ...prev, signUp: "Passwords do not match" }));
       return;
@@ -100,11 +185,34 @@ const CareLink = ({ onSignIn }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
-        username,
+        email,
         password
       );
       const user = userCredential.user;
-      onSignIn(user, userType); // auto-login
+
+      // Save full profile to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email,
+        username,
+        age: parseInt(age, 10),
+        gender,
+        program: selectedProgram,
+        userType,
+        createdAt: new Date().toISOString(),
+      });
+
+      // auto-login
+      const fullUser = {
+        uid: user.uid,
+        email: user.email,
+        username,
+        age,
+        gender,
+        program: selectedProgram,
+        userType,
+      };
+
+      onSignIn(fullUser, userType);
     } catch (error) {
       console.error(error);
       setErrors((prev) => ({ ...prev, signUp: error.message }));
