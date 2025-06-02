@@ -8,7 +8,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f5f5f5;
 }
 
@@ -45,6 +45,7 @@ input {
 .logo-section {
   padding: 25px 20px;
   text-align: center;
+  cursor: pointer;
 }
 
 .tmobile-logo {
@@ -487,12 +488,12 @@ input {
     gap: 25px;
     align-items: center;
   }
-  
+
   .medication-column {
     width: 100%;
     max-width: 600px;
   }
-  
+
   .progress-column,
   .calendar-column {
     width: auto;
@@ -555,12 +556,6 @@ input {
 
 .chart-container {
   position: relative;
-}
-
-.chart-placeholder {
-  background: #f8f9fa;
-  border-radius: 10px;
-  overflow: hidden;
 }
 
 .chart-legend {
@@ -633,7 +628,7 @@ input {
 }
 
 .suggestion-item::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -742,18 +737,18 @@ input {
   .bottom-section {
     grid-template-columns: 1fr;
   }
-  
+
   .schedule-content {
     flex-direction: column;
     gap: 25px;
     align-items: center;
   }
-  
+
   .medication-list-section {
     width: 100%;
     max-width: 600px;
   }
-  
+
   .progress-section,
   .calendar-section {
     width: auto;
@@ -764,7 +759,7 @@ input {
   .dashboard-container {
     flex-direction: column;
   }
-  
+
   .sidebar {
     width: 100%;
     height: auto;
@@ -772,56 +767,56 @@ input {
     border-right: none;
     border-bottom: 1px solid #e0e0e0;
   }
-  
+
   .main-content {
     margin-left: 0;
   }
-  
+
   .dashboard-content {
     padding: 20px;
   }
-  
+
   .schedule-header {
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
   }
-  
+
   .header-content {
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .search-bar {
     width: 100%;
   }
-  
+
   .circular-progress {
     width: 150px;
     height: 150px;
   }
-  
+
   .circular-progress svg {
     width: 150px;
     height: 150px;
   }
-  
+
   .calendar-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .suggestions-container {
     flex-direction: column;
   }
-  
+
   .details-actions {
     flex-direction: column;
   }
-  
+
   .bottom-actions {
     justify-content: space-between;
   }
-  
+
   .schedule-content {
     flex-direction: column;
     gap: 25px;

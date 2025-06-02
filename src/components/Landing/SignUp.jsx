@@ -44,6 +44,7 @@ export const SignUp = ({
       age,
       gender,
       selectedProgram,
+      name,
     } = signUpData;
 
     if (password !== confirmPassword) {
@@ -52,22 +53,21 @@ export const SignUp = ({
       return;
     }
 
-    if (!age || !gender || !username || !email) {
+    if (!name || !age || !gender || !username || !email) {
       setSignUpError("Please fill in all required fields");
       setIsSignUpLoading(false);
       return;
     }
-
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const newUser = {
       username,
       password,
-      name: username,
+      name,
       age: parseInt(age, 10),
       gender,
       program: selectedProgram,
-      email
+      email,
     };
 
     onSignUp(newUser);
@@ -145,6 +145,14 @@ export const SignUp = ({
         </div>
 
         <form onSubmit={handleSignUp} style={{ textAlign: "left" }}>
+          {/* Full Name */}
+          <InputField
+            label="Full Name"
+            value={signUpData.name}
+            onChange={(val) => handleSignUpDataChange("name", val)}
+            placeholder="Enter your full name"
+            icon={<User size={20} color={colors.darkGray} />}
+          />
           {/* Username */}
           <InputField
             label="Username"
@@ -325,8 +333,7 @@ export const SignUp = ({
               textDecoration: "underline",
             }}
           >
-            {/* ← Change Program */}
-            ← Back to Home
+            {/* ← Change Program */}← Back to Home
           </button>
         </div>
       </div>

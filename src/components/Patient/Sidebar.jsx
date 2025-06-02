@@ -1,10 +1,14 @@
-import logo from '../../assets/logo.svg';
+import logo from "../../assets/logo.svg";
+import { useUser } from "../../UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   return (
     <aside className="sidebar">
       {/* T-Mobile Logo */}
-      <div className="logo-section">
+      <div className="logo-section" onClick={() => navigate("/")}>
         <div className="tmobile-logo">
           <img
             src={logo}
@@ -35,8 +39,8 @@ export default function Sidebar() {
       {/* User Info Section - Bottom */}
       <div className="user-info-section">
         <div className="user-info">
-          <h3 className="user-name">Mary Walker</h3>
-          <p className="user-email">marywalker@carelink.com</p>
+          <h3 className="user-name">{user?.name ?? "Mary Walker"}</h3>
+          <p className="user-email">{user?.email ?? "MaryWalker@gmail.com"}</p>
         </div>
 
         {/* Bottom Actions */}
@@ -87,7 +91,9 @@ export default function Sidebar() {
             </svg>
           </button>
 
-          <button className="logout-btn">Log Out</button>
+          <button className="logout-btn" onClick={() => navigate("/")}>
+            Log Out
+          </button>
         </div>
       </div>
     </aside>

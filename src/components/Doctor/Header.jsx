@@ -17,7 +17,7 @@ export default function Header() {
             <span className="patient-id">ID No.: 123456</span>
             <span className="patient-contact">Contact: 1234567890</span>
             <span className="patient-age">Age: 76</span>
-            <span className="patient-gender">Gender: Male</span>
+            <span className="patient-gender">Gender: Female</span>
           </div>
         </div>
       </div>
