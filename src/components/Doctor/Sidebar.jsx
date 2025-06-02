@@ -1,10 +1,14 @@
 import logo from "../../assets/logo.svg";
+import { useUser } from "../../UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  const { user } = useUser();
+  const navigate = useNavigate();
   return (
     <aside className="sidebar">
       {/* T-Mobile Logo */}
-      <div className="logo-section">
+      <div className="logo-section" onClick={() => navigate("/")}>
         <div className="tmobile-logo">
           <div className="tmobile-logo">
             <img
@@ -19,8 +23,8 @@ export default function Sidebar() {
 
       {/* Doctor Info Section */}
       <div className="doctor-info">
-        <h3 className="doctor-name">Dr. Phillips</h3>
-        <p className="doctor-email">Phillips@hospital.com</p>
+        <h3 className="doctor-name">{user?.name ?? "Dr. Phillips"}</h3>
+        <p className="doctor-email">{user?.email ?? "Phillips@hospital.com"}</p>
       </div>
 
       {/* Divider Line */}

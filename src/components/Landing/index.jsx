@@ -53,6 +53,7 @@ const CareLink = ({ onSignIn }) => {
     age: "",
     gender: "",
     selectedProgram: "",
+    name: "",
   });
 
   const [errors, setErrors] = useState({
@@ -71,6 +72,7 @@ const CareLink = ({ onSignIn }) => {
       age: "",
       gender: "",
       selectedProgram: "",
+      name: "",
     });
     setErrors({ signIn: "", signUp: "" });
   };
@@ -175,6 +177,7 @@ const CareLink = ({ onSignIn }) => {
       age,
       gender,
       selectedProgram,
+      name,
     } = signUpData;
 
     if (password !== confirmPassword) {
@@ -194,6 +197,7 @@ const CareLink = ({ onSignIn }) => {
       await setDoc(doc(db, "users", user.uid), {
         email,
         username,
+        name,
         age: parseInt(age, 10),
         gender,
         program: selectedProgram,
@@ -210,6 +214,7 @@ const CareLink = ({ onSignIn }) => {
         gender,
         program: selectedProgram,
         userType,
+        name,
       };
 
       onSignIn(fullUser, userType);

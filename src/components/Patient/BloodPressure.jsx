@@ -1,74 +1,180 @@
-// src/components/Patient/BloodPressure.jsx
+import Papa from "papaparse";
+import { useEffect, useState } from "react";
+import { useUser } from "../../UserContext";
 
 export default function BloodPressure() {
-    return (
-      <div className="blood-pressure-container">
-        <h3 className="section-title">Blood Pressure Measurements</h3>
-        
-        <div className="consistency-status">
-          <div className="status-header">
-            <span className="status-label">Medication Consistency: Okay</span>
-            <button className="trend-btn">Trend ▼</button>
-          </div>
-          <p className="status-description">You've missed your pill once this week.</p>
+  const [data, setData] = useState([]);
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (!user) {
+      // no user yet, load patient0 by default
+      fetch("./data/patient0_data.csv")
+        .then((res) => res.text())
+        .then((csvText) => {
+          const parsed = Papa.parse(csvText, { header: true });
+          setData(parsed.data);
+        })
+        .catch((err) => console.error(err));
+      return;
+    }
+
+    const userString = user.email || user.username || "";
+    const hash = userString
+      ? [...userString].reduce((acc, char) => acc + char.charCodeAt(0), 0)
+      : 0;
+
+    const patientIndex = hash % 4;
+    const filename = `./data/patient${patientIndex}_data.csv`;
+
+    fetch(filename)
+      .then((res) => res.text())
+      .then((csvText) => {
+        const parsed = Papa.parse(csvText, { header: true });
+        setData(parsed.data);
+      })
+      .catch((err) => console.error(err));
+  }, [user]);
+
+  // Constants for SVG scaling
+  const chartWidth = 500;
+  const chartHeight = 200;
+  const leftPadding = 50;
+  const topPadding = 20;
+  const bottomPadding = 20;
+
+  const maxBP = 160;
+  const minBP = 60;
+  const bpRange = maxBP - minBP;
+
+  const scaleX = (i) =>
+    leftPadding + (i * (chartWidth - leftPadding - 20)) / (data.length - 1);
+  const scaleY = (bp) =>
+    chartHeight -
+    bottomPadding -
+    ((bp - minBP) / bpRange) * (chartHeight - topPadding - bottomPadding);
+
+  const systolicPoints = data
+    .map((d, i) => `${scaleX(i)},${scaleY(+d.sysBP)}`)
+    .join(" ");
+  const diastolicPoints = data
+    .map((d, i) => `${scaleX(i)},${scaleY(+d.diaBP)}`)
+    .join(" ");
+
+  return (
+    <div className="blood-pressure-container">
+      <h3 className="section-title">Blood Pressure Measurements</h3>
+
+      <div className="consistency-status">
+        <div className="status-header">
+          <span className="status-label">Medication Consistency: Okay</span>
+          <button className="trend-btn">Trend ▼</button>
         </div>
-        
-        <div className="chart-container">
-          <div className="chart-placeholder">
-            <svg width="100%" height="200" viewBox="0 0 500 200">
-              {/* Chart background */}
-              <rect width="500" height="200" fill="#f8f9fa" rx="10"/>
-              
-              {/* Grid lines */}
-              <defs>
-                <pattern id="grid" width="50" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M 50 0 L 0 0 0 20" fill="none" stroke="#e0e0e0" strokeWidth="1"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#grid)" />
-              
-              {/* Sample data lines */}
-              <polyline
-                fill="none"
-                stroke="#ff6b6b"
-                strokeWidth="2"
-                points="50,60 100,80 150,70 200,90 250,75 300,85 350,80 400,95 450,90"
-              />
-              <polyline
-                fill="none"
-                stroke="#4ecdc4"
-                strokeWidth="2"
-                points="50,120 100,130 150,125 200,140 250,135 300,145 350,140 400,150 450,145"
-              />
-              
-              {/* Highlighted area */}
-              <rect x="80" y="50" width="40" height="100" fill="rgba(255, 107, 107, 0.2)" rx="5"/>
-              
-              {/* Y-axis labels */}
-              <text x="20" y="50" fontSize="12" fill="#666">140</text>
-              <text x="20" y="100" fontSize="12" fill="#666">120</text>
-              <text x="20" y="150" fontSize="12" fill="#666">100</text>
-              <text x="20" y="180" fontSize="12" fill="#666">80</text>
-              
-              {/* X-axis labels */}
-              <text x="80" y="195" fontSize="12" fill="#666">Week 1</text>
-              <text x="180" y="195" fontSize="12" fill="#666">Week 2</text>
-              <text x="280" y="195" fontSize="12" fill="#666">Week 3</text>
-              <text x="380" y="195" fontSize="12" fill="#666">Week 4</text>
-            </svg>
+        <p className="status-description">
+          You've missed your pill once this week.
+        </p>
+      </div>
+
+      <div className="chart-container">
+        <div className="chart-placeholder">
+          <svg
+            width="100%"
+            height="200"
+            viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+          >
+            {/* Chart background */}
+            <rect
+              width={chartWidth}
+              height={chartHeight}
+              fill="#f8f9fa"
+              rx="10"
+            />
+
+            {/* Grid lines */}
+            <defs>
+              <pattern
+                id="grid"
+                width="50"
+                height="20"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 50 0 L 0 0 0 20"
+                  fill="none"
+                  stroke="#e0e0e0"
+                  strokeWidth="1"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+
+            {/* Dynamic data lines */}
+            {data.length > 0 && (
+              <>
+                <polyline
+                  fill="none"
+                  stroke="#ff6b6b"
+                  strokeWidth="2"
+                  points={systolicPoints}
+                />
+                <polyline
+                  fill="none"
+                  stroke="#4ecdc4"
+                  strokeWidth="2"
+                  points={diastolicPoints}
+                />
+              </>
+            )}
+
+            {/* Y-axis labels */}
+            {[140, 120, 100, 80].map((val, i) => (
+              <text key={i} x="10" y={scaleY(val)} fontSize="12" fill="#666">
+                {val}
+              </text>
+            ))}
+
+            {/* Optional: X-axis labels every 7 days */}
+            {data.length > 0 &&
+              data.map((d, i) => {
+                if (i % 7 !== 0) return null;
+                const date = new Date(d["Measurement Date"]);
+                const label = date.toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                });
+                return (
+                  <text
+                    key={i}
+                    x={scaleX(i)}
+                    y={chartHeight - 5}
+                    fontSize="10"
+                    fill="#666"
+                    textAnchor="middle"
+                  >
+                    {label}
+                  </text>
+                );
+              })}
+          </svg>
+        </div>
+
+        <div className="chart-legend">
+          <div className="legend-item">
+            <div
+              className="legend-color systolic"
+              style={{ backgroundColor: "#ff6b6b" }}
+            ></div>
+            <span>Systolic</span>
           </div>
-          
-          <div className="chart-legend">
-            <div className="legend-item">
-              <div className="legend-color systolic"></div>
-              <span>Systolic</span>
-            </div>
-            <div className="legend-item">
-              <div className="legend-color diastolic"></div>
-              <span>Diastolic</span>
-            </div>
+          <div className="legend-item">
+            <div
+              className="legend-color diastolic"
+              style={{ backgroundColor: "#4ecdc4" }}
+            ></div>
+            <span>Diastolic</span>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}

@@ -5,28 +5,6 @@
   background-color: #f8f9fa;
 }
 
-/* Sidebar - Fixed width, proper proportions */
-.sidebar {
-  width: 200px;
-  min-height: 100vh;
-  background-color: #ffffff;
-  border-right: 1px solid #e0e0e0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  left: 0;
-  top: 0;
-}
-
-/* Main Content Area */
-.main-content {
-  flex: 1;
-  margin-left: 200px;
-  display: flex;
-  flex-direction: column;
-}
-
 /* Content Layout */
 .content-area {
   display: grid;
@@ -48,21 +26,8 @@
   gap: 15px;
 }
 
-/* Logo Section */
-.logo-section {
-  padding: 25px 20px;
-  text-align: center;
-}
-
-.tmobile-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-}
-
 .t-logo {
-  background-color: #E20074;
+  background-color: #e20074;
   color: white;
   font-weight: bold;
   font-size: 20px;
@@ -72,7 +37,7 @@
 }
 
 .mobile-text {
-  color: #E20074;
+  color: #e20074;
   font-size: 20px;
   font-weight: bold;
   margin-left: 3px;
@@ -140,7 +105,7 @@
 }
 
 .nav-button.active {
-  background-color: #E20074;
+  background-color: #e20074;
   color: white;
   font-weight: 600;
 }
@@ -231,7 +196,7 @@
 }
 
 .add-button {
-  background: #E20074;
+  background: #e20074;
   color: white;
   border: none;
   width: 32px;
@@ -274,7 +239,7 @@
 }
 
 .breadcrumb-item.current {
-  background: #E20074;
+  background: #e20074;
   color: white;
   padding: 4px 12px;
   border-radius: 12px;
@@ -295,7 +260,7 @@
 }
 
 .edit-patient:hover {
-  color: #E20074;
+  color: #e20074;
 }
 
 /* Current Conditions Section */
@@ -303,7 +268,7 @@
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .conditions-header {
@@ -353,7 +318,7 @@
 }
 
 .tab.active {
-  background: #E20074;
+  background: #e20074;
   color: white;
 }
 
@@ -382,7 +347,7 @@
 .medication-right {
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Medication List Styles - Compact */
@@ -451,12 +416,12 @@
 }
 
 .last-refill {
-  color: #E20074;
+  color: #e20074;
   font-weight: 500;
 }
 
 .send-refill-btn {
-  background: #E20074;
+  background: #e20074;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -540,7 +505,7 @@
 }
 
 /* Calendar Grid - 7 columns, auto rows */
-.calendar-grid {
+.doctor-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 8px;
@@ -560,7 +525,7 @@
 }
 
 .calendar-cell.taken {
-  background: #E20074;
+  background: #e20074;
   color: white;
 }
 
@@ -585,11 +550,11 @@
   background: #fff8e1;
   padding: 12px;
   border-radius: 8px;
-  border-left: 4px solid #E20074;
+  border-left: 4px solid #e20074;
 }
 
 .days-count {
-  background: #E20074;
+  background: #e20074;
   color: white;
   padding: 4px 8px;
   border-radius: 12px;
@@ -607,7 +572,7 @@
 .send-reminder {
   background: none;
   border: none;
-  color: #E20074;
+  color: #e20074;
   cursor: pointer;
   font-size: 14px;
   text-decoration: underline;
@@ -624,7 +589,7 @@
   background: white;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .notes-section h3,
@@ -645,7 +610,7 @@
 .see-all {
   background: none;
   border: none;
-  color: #E20074;
+  color: #e20074;
   cursor: pointer;
   font-size: 12px;
 }
@@ -687,7 +652,7 @@
 }
 
 .save-note {
-  background: #E20074;
+  background: #e20074;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -705,7 +670,7 @@
 }
 
 .add-files {
-  background: #E20074;
+  background: #e20074;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -744,20 +709,20 @@
     margin-top: 15px;
     justify-content: flex-end;
   }
-  
+
   .patient-meta {
     flex-wrap: wrap;
     gap: 10px;
   }
-  
+
   .search-input {
     width: 150px;
   }
-  
+
   .medication-section {
     grid-template-columns: 1fr;
   }
-  
+
   .content-area {
     grid-template-columns: 1fr;
   }

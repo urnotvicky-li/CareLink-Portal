@@ -7,12 +7,15 @@ import {
 import CareLink from "./components/Landing";
 import DoctorPortal from "./DoctorPortal";
 import PatientPortal from "./PatientPortal";
+import { UserProvider, useUser } from "./UserContext";
 
-// Wrapper to use hooks like useNavigate
 function AppWrapper() {
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const handleSignIn = (user) => {
+    setUser(user); // 👈 Save user in context
+
     if (user.userType === "doctor") {
       navigate("/doctor");
     } else if (user.userType === "patient") {
@@ -25,13 +28,15 @@ function AppWrapper() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<AppWrapper />} />
-        <Route path="/doctor/*" element={<DoctorPortal />} />
-        <Route path="/patient/*" element={<PatientPortal />} />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<AppWrapper />} />
+          <Route path="/doctor/*" element={<DoctorPortal />} />
+          <Route path="/patient/*" element={<PatientPortal />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
 

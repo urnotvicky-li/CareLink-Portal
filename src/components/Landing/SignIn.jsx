@@ -120,11 +120,11 @@ export const SignIn = ({
 }) => {
   const fillDemoCredentials = () => {
     if (userType === "patient") {
-      setUsername("john_doe");
-      setPassword("patient123");
+      setUsername("hx2313");
+      setPassword("hx2313");
     } else {
-      setUsername("dr_smith");
-      setPassword("doctor123");
+      setUsername("TestDoctor");
+      setPassword("thisisatest");
     }
   };
 
