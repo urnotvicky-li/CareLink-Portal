@@ -5,7 +5,7 @@ import MedicationList from "./components/Doctor/MedicationList";
 import MedicationCalendar from "./components/Doctor/MedicationCalendar";
 import NotesSection from "./components/Doctor/NotesSection";
 import FilesSection from "./components/Doctor/FilesSection";
-import "./App.css";
+import "./Doctor.css";
 
 export default function DoctorPortal() {
   return (
