@@ -8,7 +8,13 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       {/* T-Mobile Logo */}
-      <div className="logo-section" onClick={() => navigate("/")}>
+      <div
+        className="logo-section"
+        onClick={() => {
+          navigate("/");
+          localStorage.removeItem("user");
+        }}
+      >
         <div className="tmobile-logo">
           <div className="tmobile-logo">
             <img

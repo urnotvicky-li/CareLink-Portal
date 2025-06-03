@@ -8,7 +8,13 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       {/* T-Mobile Logo */}
-      <div className="logo-section" onClick={() => navigate("/")}>
+      <div
+        className="logo-section"
+        onClick={() => {
+          navigate("/");
+          localStorage.removeItem("user");
+        }}
+      >
         <div className="tmobile-logo">
           <img
             src={logo}
@@ -91,7 +97,13 @@ export default function Sidebar() {
             </svg>
           </button>
 
-          <button className="logout-btn" onClick={() => navigate("/")}>
+          <button
+            className="logout-btn"
+            onClick={() => {
+              navigate("/");
+              localStorage.removeItem("user");
+            }}
+          >
             Log Out
           </button>
         </div>
