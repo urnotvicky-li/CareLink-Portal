@@ -1,5 +1,4 @@
-export default function Header({ pillMissedToday }) {
-  console.log(pillMissedToday);
+export default function Header({ pillMissedToday, onNotificationClick }) {
   return (
     <div className="header-container">
       <div className="header-content">
@@ -59,7 +58,11 @@ export default function Header({ pillMissedToday }) {
           </button>
 
           <div className="notification-wrapper">
-            <button className="notification-btn">
+            <button
+              className="notification-btn"
+              onClick={onNotificationClick}
+              aria-label="Show notifications"
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
