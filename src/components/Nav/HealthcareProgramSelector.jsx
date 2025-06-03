@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./HealthcareProgramSelector.css";
+import logo from "../../assets/logo.svg";
 
 const HealthcareProgramSelector = () => {
   const navigate = useNavigate();
@@ -73,7 +74,15 @@ const HealthcareProgramSelector = () => {
       <div className="hp-header">
         <div className="hp-container">
           <div className="hp-logo">
-            <span className="hp-logo-t">T</span>
+            <span className="hp-logo-t">
+              <img
+                src={logo}
+                alt="T-Mobile Logo"
+                className="tmobile-logo-img"
+                width={48}
+                background="transparent"
+              />
+            </span>
             <span className="hp-logo-text">CareLink</span>
           </div>
           <div className="hp-tagline">Choose Your Healthcare Program</div>

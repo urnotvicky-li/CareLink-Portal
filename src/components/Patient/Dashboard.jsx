@@ -10,6 +10,7 @@ import { useWeeklyIntakeStatus } from "./hooks";
 export default function Dashboard() {
   const { intakeByWeekday, todayWeekday } = useWeeklyIntakeStatus();
   const [showModal, setShowModal] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const pillMissedToday =
     intakeByWeekday && todayWeekday && !intakeByWeekday[todayWeekday];
@@ -24,7 +25,10 @@ export default function Dashboard() {
     <div className="dashboard-container">
       <Sidebar />
       <div className="main-content">
-        <Header pillMissedToday={pillMissedToday} />
+        <Header
+          pillMissedToday={pillMissedToday}
+          onNotificationClick={() => setShowDrawer(true)}
+        />
         <div className="dashboard-content">
           <MedicationSchedule />
           <div className="bottom-section">
@@ -37,6 +41,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Modal alert */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -50,6 +55,30 @@ export default function Dashboard() {
             >
               Got it
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Notification drawer */}
+      {showDrawer && (
+        <div className="notification-drawer">
+          <div className="drawer-header">
+            <h3>Notifications</h3>
+            <button onClick={() => setShowDrawer(false)}>✕</button>
+          </div>
+          <div className="drawer-content">
+            {pillMissedToday ? (
+              <div className="notification-item">
+                <span role="img" aria-label="pill">
+                  💊
+                </span>{" "}
+                You haven’t taken your medication today.
+              </div>
+            ) : (
+              <div className="notification-item empty">
+                No new notifications
+              </div>
+            )}
           </div>
         </div>
       )}

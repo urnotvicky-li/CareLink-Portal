@@ -923,3 +923,65 @@ input {
 .modal-button:hover {
   background-color: #c60066;
 }
+
+.notification-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  border-left: 3px solid #e20074;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  font-weight: bold;
+  color: #e20074;
+  border-bottom: 1px solid #eee;
+}
+
+.drawer-header button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.drawer-content {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.notification-item {
+  background: #fef1f6;
+  border-left: 4px solid #e20074;
+  padding: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  color: #333;
+}
+
+.notification-item.empty {
+  color: #aaa;
+  font-style: italic;
+}
