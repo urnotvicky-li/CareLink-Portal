@@ -3,7 +3,6 @@ import { useMedicationCalendarData } from "./hooks";
 export default function MedicationCalendar({ patientId }) {
   const { calendarData, loading } = useMedicationCalendarData(patientId);
   const days = ["S", "M", "T", "W", "T", "F", "S"];
-
   if (loading) {
     return <div className="calendar-loading">Loading...</div>;
   }
@@ -13,10 +12,7 @@ export default function MedicationCalendar({ patientId }) {
     <div className="medication-calendar">
       <div className="calendar-header-section">
         <h3>Medication Intake</h3>
-        <div className="medication-adherence">
-          <span>Medication Adherence</span>
-          <span className="status good">Good</span>
-        </div>
+        <div className="medication-adherence"></div>
       </div>
 
       <div className="calendar-container">
@@ -46,7 +42,15 @@ export default function MedicationCalendar({ patientId }) {
 
       <div className="missing-intake">
         <span className="days-count">
-          {calendarData.filter((d) => d.status === "missing").length} DAYS
+          {
+            calendarData.filter((d) => {
+              const entryDate = new Date(d.date);
+              const isBeforeToday =
+                entryDate < new Date(new Date().setHours(0, 0, 0, 0));
+              return d.status === "missing" && isBeforeToday;
+            }).length
+          }{" "}
+          DAYS
         </span>
         <span className="missing-text">Missing Medication Intake</span>
         <button className="send-reminder">Send Reminder</button>
