@@ -65,7 +65,7 @@ export default function DoctorPortal() {
           <div className="left-panel">
             {/* Current Conditions - Top Section */}
             <div className="current-conditions">
-              <BPChart />
+              <BPChart patient={patients[patientIndex]} />
             </div>
 
             {/* Bottom Section - Medication List and Calendar */}

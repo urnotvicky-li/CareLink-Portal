@@ -1,5 +1,5 @@
 import BloodPressure from "../Patient/BloodPressure";
-export default function BPChart() {
+export default function BPChart({ patient }) {
   return (
     <div className="chart-box">
       <h2>Current Conditions</h2>
@@ -8,7 +8,7 @@ export default function BPChart() {
         <button className="tab">Other Monitoring Data</button>
       </div>
 
-      <BloodPressure />
+      <BloodPressure patient={patient} />
     </div>
   );
 }

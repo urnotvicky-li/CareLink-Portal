@@ -9,7 +9,7 @@ const HealthcareProgramSelector = () => {
       title: "ACL Therapy Exercise",
       description:
         "General exercise program for ACL recovery with basic rehabilitation training",
-      url: "#acl-therapy",
+      url: "acl-therapy",
       icon: "🏃‍♂️",
       color: "#2196F3",
       features: [
@@ -53,6 +53,8 @@ const HealthcareProgramSelector = () => {
       window.open("https://preeminent-bubblegum-262a7d.netlify.app/", "_self");
     } else if (url === "hypertension") {
       navigate("/home");
+    } else if (url === "acl-therapy") {
+      window.open("https://papaya-crepe-ced3ac.netlify.app/", "_self");
     } else if (url.startsWith("http")) {
       window.open(url, "_self");
     } else {
