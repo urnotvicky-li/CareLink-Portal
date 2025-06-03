@@ -1,43 +1,59 @@
-// src/components/Patient/MedicationSchedule.jsx
-import WeeklyCalendar from './WeeklyCalendar';
+import WeeklyCalendar from "./WeeklyCalendar";
+import { useWeeklyIntakeStatus } from "./hooks";
+import Spinner from "./Spinner";
 
 export default function MedicationSchedule() {
+  const { intakeByWeekday, todayWeekday, loading } = useWeeklyIntakeStatus();
   const medications = [
     {
       id: 1,
-      name: 'Blood Pressure',
-      dosage: 'Once a day (10mg)',
-      taken: false
+      name: "Blood Pressure",
+      dosage: "Once a day (10mg)",
+      taken: false,
     },
     {
       id: 2,
-      name: 'Daily Multi',
-      dosage: 'Once a day (2 tablets)',
-      taken: false
+      name: "Daily Multi",
+      dosage: "Once a day (2 tablets)",
+      taken: false,
     },
     {
       id: 3,
-      name: 'Blood Pressure',
-      dosage: 'Once a day (10mg)',
-      taken: false
+      name: "Blood Pressure",
+      dosage: "Once a day (10mg)",
+      taken: false,
     },
     {
       id: 4,
-      name: 'Calcium',
-      dosage: 'Once a day (1 tablet)',
-      taken: false
+      name: "Calcium",
+      dosage: "Once a day (1 tablet)",
+      taken: false,
     },
     {
       id: 5,
-      name: 'Fish Oil',
-      dosage: 'Once a day (1 tablet)',
-      taken: false
-    }
+      name: "Fish Oil",
+      dosage: "Once a day (1 tablet)",
+      taken: false,
+    },
   ];
 
-  const takenCount = 2; // 默认吃了2个药
-  const totalCount = medications.length;
+  const takenCount = Object.values(intakeByWeekday).filter(Boolean).length;
+  const totalCount = 7;
   const progressPercentage = (takenCount / totalCount) * 100;
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  if (loading) {
+    return (
+      <div className="medication-schedule">
+        <Spinner size={60} />
+      </div>
+    );
+  }
 
   return (
     <div className="medication-schedule">
@@ -46,8 +62,12 @@ export default function MedicationSchedule() {
         <div className="header-left">
           <h2>Medication Schedule</h2>
           <div className="schedule-date">
-            <div className="current-date">May 6, 2025</div>
-            <div className="status-message">You haven't taken all pills today.</div>
+            <div className="current-date">{formattedDate}</div>
+            <div className="status-message">
+              {intakeByWeekday[todayWeekday]
+                ? "You have taken all pills today."
+                : "You haven't taken all pills today."}
+            </div>
           </div>
         </div>
         <button className="customize-btn">Customize</button>
@@ -107,7 +127,11 @@ export default function MedicationSchedule() {
         {/* Right: Weekly Calendar */}
         <div className="calendar-column">
           <h3 className="column-title">Medication Intake Calendar</h3>
-          <WeeklyCalendar />
+          <WeeklyCalendar
+            intakeByWeekday={intakeByWeekday}
+            todayWeekday={todayWeekday}
+            loading={loading}
+          />
         </div>
       </div>
     </div>

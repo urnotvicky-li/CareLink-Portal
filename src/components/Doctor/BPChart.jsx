@@ -7,9 +7,8 @@ export default function BPChart() {
         <button className="tab active">Blood Pressure</button>
         <button className="tab">Other Monitoring Data</button>
       </div>
-      <div className="chart-placeholder">
-        <BloodPressure />
-      </div>
+
+      <BloodPressure />
     </div>
   );
 }

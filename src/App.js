@@ -1,3 +1,4 @@
+// App.js
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,13 +9,25 @@ import CareLink from "./components/Landing";
 import DoctorPortal from "./DoctorPortal";
 import PatientPortal from "./PatientPortal";
 import { UserProvider, useUser } from "./UserContext";
+import { useEffect } from "react";
 
 function AppWrapper() {
   const navigate = useNavigate();
   const { setUser } = useUser();
 
+  // Restore user from localStorage and navigate if needed
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+    }
+  }, [navigate, setUser]);
+
+  // Handle login from CareLink
   const handleSignIn = (user) => {
-    setUser(user); // 👈 Save user in context
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
 
     if (user.userType === "doctor") {
       navigate("/doctor");
