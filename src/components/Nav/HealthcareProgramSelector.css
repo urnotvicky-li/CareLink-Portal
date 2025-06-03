@@ -19,13 +19,13 @@ body {
   background-color: var(--tmobile-white);
 }
 
-.healthcare-selector {
+.hp-healthcare-selector {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.container {
+.hp-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
@@ -39,20 +39,20 @@ body {
   box-shadow: 0 4px 20px rgba(226, 0, 116, 0.2);
 }
 
-.hp-header .container {
+.hp-header .hp-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.logo {
+.hp-logo {
   display: flex;
   align-items: center;
   font-size: 24px;
   font-weight: bold;
 }
 
-.logo-t {
+.hp-logo-t {
   background: var(--tmobile-white);
   color: var(--tmobile-magenta);
   width: 40px;
@@ -67,19 +67,19 @@ body {
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
 
-.logo-text {
+.hp-logo-text {
   font-size: 24px;
   font-weight: 600;
 }
 
-.tagline {
+.hp-tagline {
   font-size: 16px;
   font-weight: 400;
   opacity: 0.9;
 }
 
 /* Hero Section */
-.hero {
+.hp-hero {
   background: var(--gradient-secondary);
   color: var(--tmobile-white);
   padding: 80px 0;
@@ -88,7 +88,7 @@ body {
   overflow: hidden;
 }
 
-.hero::before {
+.hp-hero::before {
   content: "";
   position: absolute;
   top: 0;
@@ -110,7 +110,7 @@ body {
   }
 }
 
-.hero-title {
+.hp-hero-title {
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -119,7 +119,7 @@ body {
   z-index: 1;
 }
 
-.highlight {
+.hp-highlight {
   background: linear-gradient(45deg, var(--tmobile-white), #ffe0ec);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -127,7 +127,7 @@ body {
   text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
 }
 
-.hero-subtitle {
+.hp-hero-subtitle {
   font-size: 20px;
   opacity: 0.9;
   max-width: 600px;
@@ -137,30 +137,30 @@ body {
 }
 
 /* Programs Section */
-.programs-section {
+.hp-programs-section {
   padding: 80px 0;
   background: var(--tmobile-light-gray);
   flex-grow: 1;
 }
 
-.section-title {
+.hp-section-title {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.section-title h2 {
+.hp-section-title h2 {
   font-size: 36px;
   font-weight: 700;
   color: var(--tmobile-dark-gray);
   margin-bottom: 10px;
 }
 
-.section-title p {
+.hp-section-title p {
   font-size: 18px;
   color: var(--tmobile-gray);
 }
 
-.programs-grid {
+.hp-programs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
@@ -168,7 +168,7 @@ body {
 }
 
 /* Program Card */
-.program-card {
+.hp-program-card {
   background: var(--tmobile-white);
   border-radius: 20px;
   padding: 40px 30px;
@@ -181,13 +181,12 @@ body {
   overflow: hidden;
 }
 
-/* Featured Card (Our Product) */
-.featured-card {
+.hp-featured-card {
   border: 2px solid var(--tmobile-magenta);
   transform: scale(1.02);
 }
 
-.featured-card::after {
+.hp-featured-card::after {
   content: "";
   position: absolute;
   top: 0;
@@ -202,7 +201,7 @@ body {
   pointer-events: none;
 }
 
-.featured-badge {
+.hp-featured-badge {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -217,7 +216,7 @@ body {
   z-index: 2;
 }
 
-.program-card::before {
+.hp-program-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -233,21 +232,21 @@ body {
   transition: left 0.5s ease;
 }
 
-.program-card:hover::before {
+.hp-program-card:hover::before {
   left: 100%;
 }
 
-.program-card:hover {
+.hp-program-card:hover {
   transform: translateY(-10px);
   box-shadow: var(--shadow-hover);
   border-color: var(--card-color, var(--tmobile-magenta));
 }
 
-.featured-card:hover {
+.hp-featured-card:hover {
   transform: translateY(-10px) scale(1.02);
 }
 
-.program-icon {
+.hp-program-icon {
   font-size: 60px;
   margin-bottom: 20px;
   display: block;
@@ -255,7 +254,7 @@ body {
   z-index: 1;
 }
 
-.program-title {
+.hp-program-title {
   font-size: 24px;
   font-weight: 600;
   color: var(--tmobile-dark-gray);
@@ -264,7 +263,7 @@ body {
   z-index: 1;
 }
 
-.program-description {
+.hp-program-description {
   font-size: 16px;
   color: var(--tmobile-gray);
   margin-bottom: 25px;
@@ -273,7 +272,7 @@ body {
   z-index: 1;
 }
 
-.program-features {
+.hp-program-features {
   list-style: none;
   margin-bottom: 30px;
   text-align: left;
@@ -281,7 +280,7 @@ body {
   z-index: 1;
 }
 
-.program-features li {
+.hp-program-features li {
   font-size: 14px;
   color: var(--tmobile-gray);
   margin-bottom: 8px;
@@ -289,7 +288,7 @@ body {
   padding-left: 20px;
 }
 
-.program-features li::before {
+.hp-program-features li::before {
   content: "✓";
   position: absolute;
   left: 0;
@@ -297,7 +296,7 @@ body {
   font-weight: bold;
 }
 
-.program-button {
+.hp-program-button {
   background: var(--gradient-primary);
   color: var(--tmobile-white);
   border: none;
@@ -315,7 +314,7 @@ body {
   overflow: hidden;
 }
 
-.program-button::before {
+.hp-program-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -331,80 +330,80 @@ body {
   transition: left 0.5s ease;
 }
 
-.program-card:hover .program-button::before {
+.hp-program-card:hover .hp-program-button::before {
   left: 100%;
 }
 
-.arrow {
+.hp-arrow {
   transition: transform 0.3s ease;
 }
 
-.program-card:hover .arrow {
+.hp-program-card:hover .hp-arrow {
   transform: translateX(5px);
 }
 
 /* Footer */
-.footer {
+.hp-footer {
   background: var(--tmobile-dark-gray);
   color: var(--tmobile-white);
   padding: 40px 0;
   text-align: center;
 }
 
-.footer p {
+.hp-footer p {
   margin-bottom: 10px;
   opacity: 0.8;
 }
 
-.footer p:last-child {
+.hp-footer p:last-child {
   margin-bottom: 0;
   font-size: 14px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .hp-header .container {
+  .hp-header .hp-container {
     flex-direction: column;
     gap: 15px;
     text-align: center;
   }
 
-  .hero-title {
+  .hp-hero-title {
     font-size: 32px;
   }
 
-  .hero-subtitle {
+  .hp-hero-subtitle {
     font-size: 18px;
   }
 
-  .programs-grid {
+  .hp-programs-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-  .program-card {
+  .hp-program-card {
     padding: 30px 20px;
   }
 
-  .programs-section {
+  .hp-programs-section {
     padding: 40px 0;
   }
 }
 
 @media (max-width: 480px) {
-  .hero {
+  .hp-hero {
     padding: 50px 0;
   }
 
-  .hero-title {
+  .hp-hero-title {
     font-size: 28px;
   }
 
-  .hero-subtitle {
+  .hp-hero-subtitle {
     font-size: 16px;
   }
 
-  .container {
+  .hp-container {
     padding: 0 15px;
   }
 }
@@ -421,25 +420,25 @@ body {
   }
 }
 
-.program-card {
+.hp-program-card {
   animation: fadeInUp 0.6s ease forwards;
 }
 
-.program-card:nth-child(1) {
+.hp-program-card:nth-child(1) {
   animation-delay: 0.1s;
 }
-.program-card:nth-child(2) {
+.hp-program-card:nth-child(2) {
   animation-delay: 0.2s;
 }
-.program-card:nth-child(3) {
+.hp-program-card:nth-child(3) {
   animation-delay: 0.3s;
 }
-.program-card:nth-child(4) {
+.hp-program-card:nth-child(4) {
   animation-delay: 0.4s;
 }
-.program-card:nth-child(5) {
+.hp-program-card:nth-child(5) {
   animation-delay: 0.5s;
 }
-.program-card:nth-child(6) {
+.hp-program-card:nth-child(6) {
   animation-delay: 0.6s;
 }
