@@ -11,7 +11,7 @@ export default function Sidebar() {
       <div
         className="logo-section"
         onClick={() => {
-          navigate("/");
+          navigate("/home");
           localStorage.removeItem("user");
         }}
       >

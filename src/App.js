@@ -10,6 +10,7 @@ import DoctorPortal from "./DoctorPortal";
 import PatientPortal from "./PatientPortal";
 import { UserProvider, useUser } from "./UserContext";
 import { useEffect } from "react";
+import HealthcareProgramSelector from "./components/Nav/HealthcareProgramSelector";
 
 function AppWrapper() {
   const navigate = useNavigate();
@@ -44,7 +45,8 @@ function App() {
     <UserProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<AppWrapper />} />
+          <Route path="/" element={<HealthcareProgramSelector />} />
+          <Route path="/home" element={<AppWrapper />} />
           <Route path="/doctor/*" element={<DoctorPortal />} />
           <Route path="/patient/*" element={<PatientPortal />} />
         </Routes>

@@ -1,72 +1,61 @@
-# T-mobile CareLink + (Hypertension Medication Adherence) Portal
+# T-Mobile Carelink WebApp
 
-### Getting Started with Create React App
+This is a React-based web application designed for the T-Mobile Carelink platform. It features separate portals for patients and doctors to manage and track medication adherence securely.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+Follow these steps to run the project locally.
 
-In the project directory, you can run:
+### 1. Clone the repository
+```bash
 
-### `npm start`
+git clone git@github.com:urnotvicky-li/T-mobile-carelink-doctorportal.git
+cd T-mobile-carelink-doctorportal
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+### 2. Install Dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Set Up Firebase Environment Variables
+```bash
+Create a new file named .env in the root directory: touch .env
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Then add the following lines to the .env file, replacing the values with your Firebase project credentials: 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+REACT_APP_API_KEY=your-api-key
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+REACT_APP_AUTH_DOMAIN=your-app.firebaseapp.com
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+REACT_APP_PROJECT_ID=your-project-id
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+REACT_APP_STORAGE_BUCKET=your-app.appspot.com
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+REACT_APP_MESSAGING_SENDER_ID=your-sender-id
 
-## Learn More
+REACT_APP_APP_ID=your-app-id
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+You can find these values in your Firebase Console:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Go to your project
+ 
+- Click the gear icon > Project Settings
+ 
+- Under General > Your apps, select the app you registered
+ 
+- Copy the config values under Firebase SDK snippet
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 4. Run the Application
+```bash
+npm start
+```

@@ -276,6 +276,27 @@ input {
   transform: translateY(-2px);
 }
 
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #e20074; /* T-Mobile magenta */
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 50%;
+  border: 2px solid white;
+  z-index: 1;
+}
+
 /* Dashboard Content */
 .dashboard-content {
   padding: 30px;
@@ -850,4 +871,55 @@ input {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border: 4px solid #e20074; /* T-Mobile Magenta */
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  color: #e20074;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.modal-message {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.modal-button {
+  background-color: #e20074;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+  background-color: #c60066;
 }

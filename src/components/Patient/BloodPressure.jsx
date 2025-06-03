@@ -2,39 +2,38 @@ import Papa from "papaparse";
 import { useEffect, useState } from "react";
 import { useUser } from "../../UserContext";
 
-export default function BloodPressure() {
+export default function BloodPressure({ patient }) {
   const [data, setData] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
-    if (!user) {
-      // no user yet, load patient0 by default
-      fetch("./data/patient0_data.csv")
+    const loadCSV = (filename) => {
+      fetch(filename)
         .then((res) => res.text())
         .then((csvText) => {
           const parsed = Papa.parse(csvText, { header: true });
           setData(parsed.data);
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error("Error loading CSV:", err));
+    };
+
+    const identifier =
+      patient?.email || patient?.usererame || user?.email || user?.username;
+
+    if (!identifier) {
+      loadCSV("./data/patient0_data.csv");
       return;
     }
 
-    const userString = user.email || user.username || "";
-    const hash = userString
-      ? [...userString].reduce((acc, char) => acc + char.charCodeAt(0), 0)
-      : 0;
-
+    const hash = [...identifier].reduce(
+      (acc, char) => acc + char.charCodeAt(0),
+      0
+    );
     const patientIndex = hash % 4;
     const filename = `./data/patient${patientIndex}_data.csv`;
 
-    fetch(filename)
-      .then((res) => res.text())
-      .then((csvText) => {
-        const parsed = Papa.parse(csvText, { header: true });
-        setData(parsed.data);
-      })
-      .catch((err) => console.error(err));
-  }, [user]);
+    loadCSV(filename);
+  }, [patient, user]);
 
   // Constants for SVG scaling
   const chartWidth = 500;
@@ -71,7 +70,19 @@ export default function BloodPressure() {
           <button className="trend-btn">Trend ▼</button>
         </div>
         <p className="status-description">
-          You've missed your pill once this week.
+          {patient ? (
+            <>
+              {patient.name} has missed{" "}
+              {patient.gender === "male"
+                ? "his"
+                : patient.gender === "female"
+                ? "her"
+                : "their"}{" "}
+              pills once this week.
+            </>
+          ) : (
+            "You've missed your pills once this week."
+          )}
         </p>
       </div>
 
@@ -79,7 +90,7 @@ export default function BloodPressure() {
         <div className="chart-placeholder">
           <svg
             width="100%"
-            height="200"
+            height="300"
             viewBox={`0 0 ${chartWidth} ${chartHeight}`}
           >
             {/* Chart background */}
